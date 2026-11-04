@@ -1,3 +1,4 @@
+/* Meowdoku - interface, controles de mouse/toque e armazenamento local. */
 (function () {
   'use strict';
   const core = window.MeowCore;
