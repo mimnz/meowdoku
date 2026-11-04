@@ -7,6 +7,11 @@
   <meta name="description" content="Meowdoku: um quebra-cabeça de gatos com tabuleiros aleatórios, tamanhos personalizados e desafios que você pode compartilhar.">
   <title>Meowdoku | Um gato em cada lugar 🐈</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Meowdoku">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -72,6 +77,7 @@
           <p class="form-hint">A complexidade também depende do mapa gerado.</p>
         </div>
         <button id="generateBtn" class="button button-primary full-button" type="button"><span>✦</span> Gerar nova fase <span>→</span></button>
+        <button id="installAppBtn" class="button button-install full-button" type="button" aria-haspopup="dialog"><span>📲</span> Instalar o Meowdoku</button>
         <div class="settings-divider"></div>
         <div class="assist-heading">Ajuda de jogo <span>✨</span></div>
         <label class="switch-row" for="autoX"><span><strong>X automático</strong><small>Marca casas impossíveis após colocar um gato</small></span><span class="switch"><input id="autoX" type="checkbox"><span class="slider"></span></span></label>
@@ -132,7 +138,20 @@
       <div class="gallery-controls"><label for="gallerySearch" class="visually-hidden">Pesquisar na galeria</label><input id="gallerySearch" type="search" placeholder="Buscar seed ou tamanho..."><button id="clearHistoryBtn" type="button">Limpar galeria</button></div><div id="galleryList" class="gallery-list"></div>
     </div>
   </dialog>
+  <dialog id="installHelpDialog" class="modal install-modal" aria-labelledby="installHelpTitle">
+    <div class="modal-content">
+      <button class="modal-close" data-close="installHelpDialog" aria-label="Fechar" type="button">×</button>
+      <div class="install-hero">🐱📲</div>
+      <h2 id="installHelpTitle">Leve o Meowdoku com você!</h2>
+      <p>O jogo funciona offline depois do primeiro acesso com internet. A instalação depende do seu navegador:</p>
+      <div class="install-steps"><strong>🍎 iPhone ou iPad (Safari)</strong><span>Abra o menu Compartilhar e escolha <b>Adicionar à Tela de Início</b>.</span></div>
+      <div class="install-steps"><strong>🤖 Android (Chrome)</strong><span>No menu ⋮, selecione <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</span></div>
+      <div class="install-steps"><strong>💻 Computador (Chrome ou Edge)</strong><span>Procure a opção <b>Instalar aplicativo</b> no menu do navegador ou na barra de endereço.</span></div>
+      <button id="installHelpClose" class="button button-primary full-button" type="button">Entendi! 🐾</button>
+    </div>
+  </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="js/pwa.js" defer></script>
   <script src="js/core.js" defer></script>
   <script src="js/app.js" defer></script>
 </body>
