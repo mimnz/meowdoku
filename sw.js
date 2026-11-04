@@ -3,7 +3,7 @@
  * Ao alterar arquivos publicados, mude CACHE_VERSION para forçar um cache novo.
  * Tudo é relativo ao sw.js, portanto funciona em /meowdoku/ no GitHub Pages.
  */
-const CACHE_VERSION = 'meowdoku-static-v1';
+const CACHE_VERSION = 'meowdoku-static-v2';
 const CACHE_PREFIX = 'meowdoku-static-';
 const BASE = new URL('./', self.location.href);
 const SHELL = [
