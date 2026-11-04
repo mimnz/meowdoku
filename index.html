@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#fffaf5">
+  <meta name="description" content="Meowdoku: um quebra-cabeça de gatos com tabuleiros aleatórios, tamanhos personalizados e desafios que você pode compartilhar.">
+  <title>Meowdoku | Um gato em cada lugar 🐈</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-defs" aria-hidden="true" focusable="false">
+    <symbol id="i-cat" viewBox="0 0 64 64">
+      <path d="M11 33 10 9l17 12a28 28 0 0 1 10 0L54 9l-1 24c4 14-4 25-21 25S7 47 11 33Z" fill="currentColor" stroke="#563e49" stroke-width="2.7" stroke-linejoin="round"/>
+      <path d="m16 17 9 8-10 6Z" fill="#fff5e8" opacity=".65"/><path d="m48 17-9 8 10 6Z" fill="#fff5e8" opacity=".65"/>
+      <path d="M22 35q4-4 8 0m4 0q4-4 8 0" fill="none" stroke="#563e49" stroke-width="3" stroke-linecap="round"/>
+      <path d="m29 42 3 2 3-2-3-2Z" fill="#563e49"/><path d="M32 44q-3 5-7 1m7-1q3 5 7 1" fill="none" stroke="#563e49" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="17" cy="42" r="4" fill="#ff96a5" opacity=".6"/><circle cx="47" cy="42" r="4" fill="#ff96a5" opacity=".6"/>
+      <path d="m15 47-10 1m10 3L5 54m44-7 10 1m-10 3 10 3" stroke="#563e49" stroke-width="1.7" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-paw" viewBox="0 0 24 24"><path d="M7 9c1.3 0 2-1.6 1.5-3.1C8 4.7 6.6 4.3 5.7 5 3.5 6.4 4.8 9 7 9Zm10 0c2.3 0 3.5-2.6 1.3-4-.9-.7-2.3-.3-2.8.9C15 7.4 15.7 9 17 9ZM3 14c2 1.2 3.5-.4 3-2.2-.4-1.4-2-2.6-3.3-2.1C.5 10.6 1.2 12.9 3 14Zm18 0c1.8-1.1 2.5-3.4.3-4.3-1.3-.5-2.9.7-3.3 2.1-.5 1.8 1 3.4 3 2.2Zm-9-4c-2.9 0-5 4-6.4 6.3-1.4 2.1-.2 4.7 2.4 4.7 1.5 0 2.4-1 4-1s2.5 1 4 1c2.6 0 3.8-2.6 2.4-4.7C17 14 14.9 10 12 10Z" fill="currentColor"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 1 2.8 8.2L23 12l-8.2 2.8L12 23l-2.8-8.2L1 12l8.2-2.8Z" fill="currentColor"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M5 12h10a5 5 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 -3)"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 7 5 5-5 5m4-5H9a5 5 0 0 0 0 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 -3)"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4Zm12-1a6 6 0 0 1 0 8m2-12a11 11 0 0 1 0 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 16V3m-5 5 5-5 5 5M5 13v7h14v-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </svg>
+  <div class="ambient ambient-a" aria-hidden="true"></div><div class="ambient ambient-b" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="Meowdoku, página inicial">
+        <span class="brand-icon"><svg><use href="#i-cat"></use></svg></span>
+        <span class="brand-word">meow<span>doku</span><small>gatos + lógica = diversão</small></span>
+      </a>
+      <nav class="header-actions" aria-label="Ações principais">
+        <span class="header-chip"><span class="chip-dot"></span> partidas sem fim</span>
+        <button id="themeToggle" class="icon-btn theme-toggle" type="button" title="Alternar tema" aria-label="Alternar tema">☾</button>
+        <button id="soundToggle" class="icon-btn" type="button" title="Ativar ou desativar sons" aria-label="Ativar ou desativar sons"><svg><use href="#i-sound"></use></svg></button>
+        <button id="openGallery" class="button button-light" type="button"><span>▦</span> Minha galeria <span id="galleryBadge" class="badge">0</span></button>
+      </nav>
+    </header>
+
+    <section class="intro" aria-labelledby="heroTitle">
+      <div class="intro-text"><div class="eyebrow"><svg><use href="#i-spark"></use></svg> o desafio mais fofo do seu dia</div>
+        <h1 id="heroTitle">Um gato em <em>cada lugar.</em> <span>🐾</span></h1>
+        <p>Uma linha. Uma coluna. Uma região. Um gatinho. É simples... até deixar de ser. Crie desafios únicos e descubra onde cada um se esconde.</p>
+      </div>
+      <div class="intro-art" aria-hidden="true"><div class="art-glow"></div><span class="art-spark a">✦</span><span class="art-spark b">✳</span><svg><use href="#i-cat"></use></svg><div class="art-bubble">miau!</div></div>
+    </section>
+
+    <main class="layout">
+      <aside class="panel settings-panel" aria-labelledby="settingsTitle">
+        <div class="panel-heading"><span class="section-number">01</span><div><h2 id="settingsTitle">Seu desafio</h2><p>Monte a fase do seu jeito</p></div></div>
+        <div class="control-group"><label class="control-label" for="customSize">Tamanho do tabuleiro <span>📐</span></label>
+          <div id="sizePresets" class="size-presets" role="group" aria-label="Tamanhos sugeridos">
+            <button type="button" data-size="4">4×4</button><button type="button" data-size="6">6×6</button>
+            <button type="button" data-size="8" class="active">8×8</button><button type="button" data-size="10">10×10</button>
+            <button type="button" data-size="12">12×12</button><button type="button" data-size="15">15×15</button><button type="button" data-size="20">20×20</button>
+          </div>
+          <div class="custom-size"><label for="customSize">Ou personalize</label><div class="number-input"><input id="customSize" type="number" min="4" max="30" step="1" value="8" inputmode="numeric" aria-label="Tamanho personalizado"><span>× <strong id="sizeMirror">8</strong></span></div></div>
+          <p class="form-hint">De 4×4 a 30×30 • sempre quadrado</p>
+        </div>
+        <div class="control-group"><div class="control-label">Dificuldade <span>🧩</span></div>
+          <div id="difficultyGroup" class="difficulty-grid" role="group" aria-label="Selecione a dificuldade">
+            <button data-difficulty="facil" type="button"><span class="difficulty-icon">🌱</span><span>Fácil</span></button>
+            <button data-difficulty="medio" type="button" class="active"><span class="difficulty-icon">🌼</span><span>Médio</span></button>
+            <button data-difficulty="dificil" type="button"><span class="difficulty-icon">🔥</span><span>Difícil</span></button>
+            <button data-difficulty="extremo" type="button"><span class="difficulty-icon">⚡</span><span>Extremo</span></button>
+          </div>
+          <p class="form-hint">A complexidade também depende do mapa gerado.</p>
+        </div>
+        <button id="generateBtn" class="button button-primary full-button" type="button"><span>✦</span> Gerar nova fase <span>→</span></button>
+        <div class="settings-divider"></div>
+        <div class="assist-heading">Ajuda de jogo <span>✨</span></div>
+        <label class="switch-row" for="autoX"><span><strong>X automático</strong><small>Marca casas impossíveis após colocar um gato</small></span><span class="switch"><input id="autoX" type="checkbox"><span class="slider"></span></span></label>
+        <div class="little-note"><span>💡</span> Um clique marca ou apaga X. Dois cliques rápidos colocam gato. Arraste para marcar ou apagar vários X!</div>
+      </aside>
+
+      <section class="panel game-panel" aria-labelledby="gameTitle">
+        <div class="game-top"><div><div class="overline">TABULEIRO ATUAL <span class="live-dot"></span></div><h2 id="gameTitle">Caça aos gatinhos</h2></div>
+          <div class="game-tags"><span id="sizeTag" class="tag">8 × 8</span><span id="difficultyTag" class="tag peach-tag">Médio</span></div>
+        </div>
+        <div class="status-row">
+          <div class="status-item"><span class="status-icon">🐈</span><span><strong id="catsCount">0 / 8</strong><small>gatinhos</small></span></div>
+          <div class="status-item"><span class="status-icon">♥</span><span><strong id="heartDisplay" class="heart-display" aria-label="3 vidas">♥ ♥ ♥</strong><small>vidas</small></span></div>
+          <div class="status-item"><span class="status-icon"><svg><use href="#i-clock"></use></svg></span><span><strong id="timerDisplay">00:00</strong><small>tempo</small></span></div>
+        </div>
+        <div id="gameMessage" class="game-message" role="status" aria-live="polite">Prepare as patinhas. Um desafio está chegando!</div>
+        <div class="board-frame" id="boardFrame">
+          <div class="board-scroll" id="boardScroll"><div id="board" class="board" role="grid" aria-label="Tabuleiro do Meowdoku" tabindex="0"></div></div>
+          <div class="zoom-controls"><button id="zoomOut" title="Diminuir zoom" aria-label="Diminuir zoom" type="button">−</button><span id="zoomValue">100%</span><button id="zoomIn" title="Aumentar zoom" aria-label="Aumentar zoom" type="button">+</button><button id="zoomFit" title="Ajustar tabuleiro à tela" aria-label="Ajustar tabuleiro à tela" type="button">⤢</button><button id="panToggle" title="Modo mover o tabuleiro" type="button">✥</button></div>
+          <div id="loadingLayer" class="loading-layer" hidden><span class="spinner-cat">🐱</span><strong>Espalhando os gatinhos...</strong><small>Validando uma solução única <span id="progressDisplay">0%</span></small><span class="loading-line"><span id="loadingProgress"></span></span></div>
+        </div>
+        <div class="game-toolbar" role="group" aria-label="Ferramentas da partida">
+          <button id="undoBtn" type="button" title="Desfazer (Ctrl+Z)"><svg><use href="#i-undo"></use></svg> Desfazer</button>
+          <button id="redoBtn" type="button" title="Refazer (Ctrl+Y)"><svg><use href="#i-redo"></use></svg> Refazer</button>
+          <button id="resetBtn" type="button" title="Reiniciar fase">↻ <span>Reiniciar</span></button>
+          <button id="hintBtn" class="hint-button" type="button" title="Receber uma dica">💡 <span>Dica</span></button>
+        </div>
+        <div class="seed-line"><span><svg><use href="#i-spark"></use></svg> <strong>Seed</strong> <code id="seedDisplay">...</code></span><button id="shareBtn" class="share-button" type="button"><svg><use href="#i-share"></use></svg> Compartilhar fase</button></div>
+      </section>
+
+      <aside class="right-column">
+        <section class="panel stats-panel"><div class="panel-heading"><span class="section-number mint">02</span><div><h2>Meu cantinho</h2><p>Seus recordes locais</p></div></div>
+          <div class="stats-grid"><div class="stat-tile pink"><span>🏆</span><strong id="winsStat">0</strong><small>vitórias</small></div><div class="stat-tile yellow"><span>🎯</span><strong id="playedStat">0</strong><small>partidas</small></div><div class="stat-tile lilac"><span>⚡</span><strong id="bestStat">--:--</strong><small>melhor tempo*</small></div><div class="stat-tile green"><span>🧡</span><strong id="mistakeStat">0</strong><small>erros totais</small></div></div>
+          <p class="stats-note">* Recorde para o tamanho e dificuldade atuais. Salvo neste navegador.</p>
+        </section>
+        <section class="panel guide-panel"><div class="guide-header"><h2>Como jogar?</h2><span>📖</span></div>
+          <div class="guide-rule"><span class="guide-icon cat-guide">🐱</span><p><strong>Um gatinho</strong> por linha, coluna e região colorida.</p></div>
+          <div class="guide-rule"><span class="guide-icon no-guide">↗</span><p>Gatos <strong>não podem se encostar</strong>, nem na diagonal.</p></div>
+          <div class="guide-rule"><span class="guide-icon x-guide"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5L19 19M19 5L5 19"/></svg></span><p><strong>Um clique ou arrasto</strong> marca ou apaga X; dois cliques rápidos colocam gato.</p></div>
+          <div class="guide-rule"><span class="guide-icon heart-guide">♥</span><p>Você tem <strong>3 vidas</strong>. Gato incorreto perde uma.</p></div>
+          <div class="guide-footer"><svg><use href="#i-paw"></use></svg> Cada fase é validada antes de aparecer!</div>
+        </section>
+        <button id="sideGalleryBtn" class="gallery-teaser" type="button"><span class="teaser-icon">🗂️</span><span><strong>Galeria de fases</strong><small>Revisite seus desafios favoritos</small></span><span>↗</span></button>
+      </aside>
+    </main>
+    <footer class="footer"><span>Feito com lógica, patinhas e um pouquinho de caos 🐾</span><span>100% local · nenhum cadastro · nenhum banco de dados</span></footer>
+  </div>
+
+  <dialog id="resultDialog" class="modal result-modal" aria-labelledby="resultTitle">
+    <div class="modal-content"><button class="modal-close" data-close="resultDialog" aria-label="Fechar" type="button">×</button>
+      <div id="resultIcon" class="result-icon">🎉</div><span id="resultEyebrow" class="result-eyebrow">missão cumprida</span><h2 id="resultTitle">Miauravilhoso!</h2><p id="resultDescription">Todos os gatos encontraram seus cantinhos.</p>
+      <div class="result-stats"><div><small>Tempo</small><strong id="resultTime">00:00</strong></div><div><small>Erros</small><strong id="resultMistakes">0</strong></div><div><small>Dicas</small><strong id="resultHints">0</strong></div></div>
+      <button id="resultNewBtn" class="button button-primary full-button" type="button">✨ Mais uma fase!</button><button id="resultRetryBtn" class="button button-light full-button" type="button">↻ Tentar novamente</button>
+    </div>
+  </dialog>
+  <dialog id="galleryDialog" class="modal gallery-modal" aria-labelledby="galleryTitle">
+    <div class="modal-content"><button class="modal-close" data-close="galleryDialog" aria-label="Fechar" type="button">×</button><div class="gallery-title-row"><div class="eyebrow">SUA COLEÇÃO LOCAL</div><h2 id="galleryTitle">Galeria de fases 🗂️</h2><p>Seus desafios ficam guardados neste navegador. Abra qualquer um pelo código da fase.</p></div>
+      <div class="gallery-controls"><label for="gallerySearch" class="visually-hidden">Pesquisar na galeria</label><input id="gallerySearch" type="search" placeholder="Buscar seed ou tamanho..."><button id="clearHistoryBtn" type="button">Limpar galeria</button></div><div id="galleryList" class="gallery-list"></div>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="js/core.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
