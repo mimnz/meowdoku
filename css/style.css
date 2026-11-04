@@ -179,3 +179,14 @@ body.dark .button-install{background:#45384e;color:#efd9ff;border-color:#6b537a}
 .install-steps span{display:block;color:var(--muted);font-size:12px;line-height:1.5}
 .install-steps b{color:var(--ink)}
 .install-modal .button-primary{margin-top:15px}
+
+.settings-panel #generateBtn,
+.settings-panel #installAppBtn {
+    display: flex;
+    width: 100%;
+}
+
+.settings-panel #installAppBtn {
+    margin-top: 26px;
+    margin-bottom: 8px;
+}
