@@ -10,9 +10,11 @@
 @media(max-width:760px){.app-shell{padding:0 15px}.site-header{padding:16px 0}.brand-word{font-size:25px}.brand-icon{width:44px;height:44px}.brand-icon svg{width:31px;height:31px}.header-chip{display:none}.header-actions{gap:6px}.header-actions .button-light{padding:10px 11px;font-size:0;gap:4px}.header-actions .button-light span:first-child{font-size:17px}.header-actions .badge{font-size:10px}.intro{padding:26px 1px 22px;min-height:0}.intro h1{font-size:clamp(29px,6vw,42px);letter-spacing:-.75px}.intro p{font-size:12px}.intro-art{display:none}.layout{grid-template-columns:1fr;gap:15px}.settings-panel{display:grid;grid-template-columns:1fr 1fr;gap:5px 15px}.settings-panel .panel-heading{grid-column:1/-1;margin-bottom:10px}.settings-panel .control-group{margin-bottom:0}.settings-panel>.full-button{grid-column:1/-1;margin:9px 0}.settings-divider{display:none}.assist-heading{grid-column:1/-1;margin-top:10px;margin-bottom:0}.switch-row{grid-column:1/-1}.little-note{grid-column:1/-1;margin-top:8px}.game-panel{padding:18px 14px}.right-column{grid-template-columns:1fr 1fr}.gallery-teaser{grid-column:1/-1;min-height:70px!important}.footer{padding-top:12px}}
 @media(max-width:510px){.settings-panel{grid-template-columns:1fr}.settings-panel .control-group{margin-bottom:9px}.size-presets{grid-template-columns:repeat(7,1fr)}.size-presets button{font-size:10px;padding:10px 0}.difficulty-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.difficulty-grid button{min-height:65px;font-size:10px}.difficulty-icon{font-size:18px}.intro h1{font-size:32px}.intro p{font-size:12px}.game-top h2{font-size:19px}.game-tags{gap:4px}.tag{padding:5px 7px;font-size:10px}.status-row{gap:5px;margin:19px 0 11px}.status-item{gap:5px;padding:9px 4px}.status-item .status-icon{font-size:15px}.status-item .status-icon svg{width:17px;height:17px}.status-item strong{font-size:12px}.heart-display{font-size:11px!important}.game-message{font-size:11px;padding:10px}.board-frame{padding:9px 4px 47px;min-height:270px}.game-toolbar{gap:5px}.game-toolbar button{font-size:10px;min-height:42px;gap:3px}.game-toolbar button svg{width:13px;height:13px}.seed-line{flex-direction:column;align-items:flex-start;gap:12px}.right-column{grid-template-columns:1fr}.guide-rule{margin-bottom:14px}.stats-grid{grid-template-columns:repeat(4,1fr)}.stat-tile{padding:10px 5px;min-height:89px;text-align:center}.stat-tile strong{font-size:19px}.stat-tile small{font-size:9px}.gallery-list{grid-template-columns:1fr}.gallery-modal .modal-content{padding:24px 14px}.gallery-controls{flex-wrap:wrap}}
 body.dark{color-scheme:dark;--bg:#201d29;--surface:#302a3b;--ink:#f6ecf5;--muted:#baaebd;--line:#4d4255;--shadow:0 15px 55px #120e191e;--board-border:#ded3e6;--grid-line:#3f354322;background:var(--bg)}body.dark .site-header{border-color:#43394a}body.dark .ambient{opacity:.12}body.dark .icon-btn,body.dark .button-light,body.dark .panel,body.dark .gallery-teaser{border-color:#4b4056}body.dark .size-presets button,body.dark .difficulty-grid button,body.dark .number-input,body.dark .status-item,body.dark .game-toolbar button,body.dark .board-frame,body.dark .gallery-card,body.dark .gallery-controls input{background:#393142;border-color:#504457;color:#f1e8f0}body.dark .board-frame{background:#282332}body.dark .game-message{background:#433443;border-color:#59435a;color:#efcfdd}body.dark .little-note{background:#4a3b39;border-color:#69504b;color:#f6dfb5}body.dark .seed-line code,body.dark .modal-close{background:#453a4f;color:#f9dfec}body.dark .guide-rule strong{color:#f3e5f1}body.dark .stat-tile{filter:brightness(.87);color:#403547}body.dark .stat-tile small{color:#78677b}body.dark .loading-layer{background:#302a3bf2}body.dark .result-stats>div{background:#3b3447}body.dark .gallery-card{background:#393240}body.dark .settings-divider,body.dark .seed-line{border-color:#54495c}body.dark .stats-note{color:#b7a8be}body.dark .size-presets button.active,body.dark .difficulty-grid button.active{background:#694965;color:#fff}body.dark .toast{background:#f6eaf3;color:#4d3c51}
-
+/* Atributo hidden em SVG inline pode ser ignorado por alguns navegadores. */
 .cell svg[hidden]{display:none!important}.cell svg{pointer-events:none}
 
+
+/* Revisão visual: células individuais com separação branca uniforme, sem muralhas por região. */
 .board {
   gap: var(--tile-gap, 3px);
   border: 3px solid #ffffff;
@@ -72,6 +74,9 @@ body.dark .board { background: #fff; border-color: #fff; }
   .cell.x svg.x-symbol { animation: none; }
 }
 
+
+/* Responsividade real: o tabuleiro cabe na tela ao abrir, inclusive em
+   orientação paisagem e em mapas densos (4x4 a 30x30). Zoom é opcional. */
 html, body { max-width: 100%; }
 body { min-width: 0; }
 .app-shell, .layout, .panel, .game-panel, .board-frame,
@@ -93,6 +98,8 @@ body { min-width: 0; }
 .game-top h2 { overflow-wrap: anywhere; }
 .game-toolbar { min-width: 0; }
 
+/* Tablets na vertical recebem um tabuleiro com a largura do dispositivo,
+   em vez de esmagá-lo entre as duas barras laterais do desktop. */
 @media (max-width: 1100px) {
   .layout { grid-template-columns: minmax(0, 1fr); }
   .right-column { grid-column: 1; grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -157,3 +164,18 @@ body { min-width: 0; }
   .status-item .status-icon { display: none; }
   .settings-panel { padding-inline: 11px; }
 }
+
+/* PWA: convite de instalação sem ocupar a barra de navegação no celular. */
+.button-install{margin-top:14px;background:#fdf5ff;border:1px solid #decaf2;color:#805ca9;box-shadow:0 4px 12px rgba(104,83,136,.07);font-weight:900;min-height:43px}
+.button-install:hover{background:#f2e8ff;transform:translateY(-2px)}
+.button-install[hidden]{display:none!important}
+body.dark .button-install{background:#45384e;color:#efd9ff;border-color:#6b537a}
+.install-modal .modal-content{padding:30px}
+.install-modal h2{font-size:23px;font-weight:900;margin:5px 0 8px;text-align:center}
+.install-modal p{font-size:13px;color:var(--muted);text-align:center;line-height:1.6}
+.install-hero{text-align:center;font-size:43px}
+.install-steps{border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin:10px 0;background:var(--surface)}
+.install-steps strong{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}
+.install-steps span{display:block;color:var(--muted);font-size:12px;line-height:1.5}
+.install-steps b{color:var(--ink)}
+.install-modal .button-primary{margin-top:15px}
